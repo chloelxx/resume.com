@@ -129,7 +129,7 @@
         a.myMenu:active{
             background-color: blue;
         }
-        #part2,#menu a{
+        #part2,li a{
             background-color: #2c3e50;
             color: #f5f5f5;
         }
@@ -154,8 +154,11 @@
             width:30%;
             text-align: center;
         }
-        #menu li a:hover,#menu li a.active{
+        #menu li a:hover{
            color:#E87E04;
+        }
+        .active{
+            color:#E87E04;
         }
     </style>
 </head>
@@ -185,8 +188,8 @@
              </div>
              <ul class="lf" id="menu">
                  <li><a href="#aboutMe" class="active">关于我</a></li>
-                 <li><a href="#apply">求职意向</a></li>
                  <li><a href="#myWorks"> 项目经验</a></li>
+                 <li><a href="#apply">求职意向</a></li>
                  <li><a href="#skill">技术掌握</a></li>
              </ul>
          </div>
@@ -210,7 +213,11 @@
                     <img src="img/fans.png" style="width:100%;height: 100%">
                 </div>
                 <div class="programDesc">
-                    <p class="proName">2016.7-2017.5粉丝管理系统</p>
+                    <p class="proName">2016.7-2017.5
+                        <a href="http://sz1-fans.oss-cn-shenzhen.aliyuncs.com/index.html#/community/album" target="_blank">
+                            粉丝管理系统
+                        </a>
+                    </p>
                     <span class="details">vue+vuex+vue-router+webpack的单页面项目</span>
                 </div>
             </div>
@@ -220,8 +227,12 @@
                     <img src="img/fans.png" style="width:100%;height: 100%">
                 </div>
                 <div class="programDesc">
-                    <p class="proName">2016.11-2017.6粉丝管理系统</p>
-                    <span class="details">vu的多页面项目</span>
+                    <p class="proName">2017.1-2017.6
+                        <a href="http://sz1-test-sep-static.oss-cn-shenzhen.aliyuncs.com/platform/manager/home.html#/platform-manager/water/param" target="_blank">
+                            监管系统
+                        </a>
+                    </p>
+                    <span class="details">vue的多页面项目，模板页中load加载其他子页面</span>
                 </div>
             </div>
             <div style="margin-right:20px" class="items">
@@ -241,6 +252,7 @@
         <p style="margin:20px 40px;text-align: center;text-indent:32px">
             web前端开发，移动端H5页面开发，nodejs开发
         </p>
+        <p>联系方式：微信号liuxingxing9188</p>
     </div>
     <div class="part6" id="skill">
         <h1 class="me">技术掌握</h1>
@@ -277,6 +289,32 @@
             var index = Math.round(Math.random() * length);
             $("#part1 .bg-img li").eq(index).addClass("show").siblings().removeClass("show");
         },5000);
+    });
+    $("a").click(function () {
+        $(this).addClass("active").parent().children().removeClass("active");
+        $("html, body").animate({scrollTop: $($(this).attr("href")).offset().top -20+ "px"}, 500);
+        return false;//不要这句会有点卡顿
+    });
+    //页面滚动
+    var top1 = $("#aboutMe").offset().top-30;
+    var top2 = $("#myWorks").offset().top-30;
+    var top3 = $("#apply").offset().top-30;
+    var top4 = $("#skill").offset().top-30;
+    var tops = [top1,top2,top3];
+    $(window).scroll(function () {
+        //导航fixed
+        var s = $(window).scrollTop();
+        s > top1 ? $('#part2').addClass("fixed") : $('#part2').removeClass("fixed");
+        //导航跟随滚动响应
+        if((s>top1)&&(s<top2)){
+            $("#menu li a").eq(0).addClass("active").parent().siblings().children().removeClass("active");
+        }else if((s>top2)&&(s<top3)){
+            $("#menu li a").eq(1).addClass("active").parent().siblings().children().removeClass("active");
+        }else if((s>top3)&&(s<top4)){
+            $("#menu li a").eq(2).addClass("active").parent().siblings().children().removeClass("active");
+        }else if((s>top4)){
+            $("#menu li a").eq(3).addClass("active").parent().siblings().children().removeClass("active");
+        }
     });
 </script>
 </body>
