@@ -74,16 +74,20 @@
 }
 .typeSkill{
 
-    width:30%;
+    width:45%;
     margin:0 auto;
     margin-bottom:20px;
+}
+.typeSkill>div{
+    margin:6px;
 }
 .progress{
     width:200px;
     height:20px;
-    margin-left: 20px;
+    margin:0 20px;
     display: inline-block;
     border:1px solid #ccc;
+    vertical-align: middle;
 }
 .progress a{
     height:18px;
