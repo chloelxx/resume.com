@@ -8,208 +8,6 @@
     <meta name="author" content="张小月,chloe">
     <title>个人简历网站</title>
     <link href="dist/index.css" rel="stylesheet">
-    <style>
-        *{
-            padding:0;
-            margin:0;
-            box-sizing: border-box;
-        }
-        body{
-            font-family:"Microsoft Yahei" ;
-            color: #787978;
-        }
-        #loadMusic{
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            position: fixed;
-            right: 20px;
-            top: 3px;
-            z-index: 19;
-        }
-        .playBgm{
-            animation:  myfirst 1s linear 0s infinite alternate;
-            -moz-animation:  myfirst 1s linear 0s infinite alternate;
-            -webkit-animation:  myfirst 1s linear 0s infinite alternate;
-            -o-animation:  myfirst 1s linear 0s infinite alternate;
-        }
-        .stopBgm{
-
-        }
-        @keyframes myfirst
-        {
-            from {transform: rotateX(0deg);}
-            to {transform: rotateX(360deg);}
-            from {transform: rotateX(0deg);}
-        }
-
-        @-moz-keyframes myfirst /* Firefox */
-        {
-            from {transform: rotateX(0deg);}
-            to {transform: rotateX(360deg);}
-            from {transform: rotateX(0deg);}
-        }
-
-        @-webkit-keyframes myfirst /* Safari 和 Chrome */
-        {
-            from {transform: rotateX(0deg);}
-            to {transform: rotateX(360deg);}
-            from {transform: rotateX(0deg);}
-        }
-
-        @-o-keyframes myfirst /* Opera */
-        {
-            from {transform: rotateX(0deg);}
-            to {transform: rotateX(360deg);}
-            from {transform: rotateX(0deg);}
-        }
-        content {
-            padding: 0;
-            margin: 0 auto;
-            width: 100%;
-        }
-        #part1{
-            color: #2c3e50;
-            position: relative;
-            /* background-image: url(../image/intro-bg.jpg); */
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: cover;
-            overflow: hidden;
-            display: table;
-            text-align: center;
-        }
-        a{
-            text-decoration: none;
-            color: #000;
-        }
-        .part{
-            width: 100%;
-            height: 100vh;
-            position: relative;
-            /*padding-bottom: 20px;*/
-        }
-        li{
-            list-style: none;
-        }
-        .bg-img{
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: -1;
-        }
-        .bg-img li,.bg-img li.show{
-            webkit-animation: fadescale 5s forwards;
-            animation: fadescale 5s forwards;
-        }
-        .bg-img li{
-            position: absolute;
-            top:0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            display: none;
-            opacity: 0;
-        }
-        @keyframes fadescale{
-            0%{
-                opacity: 1;
-                transform: scale(1);
-            }
-
-            50%{
-                opacity: 1;
-                transform: scale(1.1);
-            }
-
-            100%{
-                opacity: 0.5;
-                transform: scale(1);
-            }
-        }
-        @-webkit-keyframes fadescale{
-            0%{
-                opacity: 1;
-                -webkit-transform: scale(1);
-            }
-            50%{
-                opacity: 1;
-                -webkit-transform: scale(1.1);
-            }
-            100%{
-                opacity: 0.5;
-                -webkit-transform: scale(1);
-            }
-        }
-        .bg-img li:nth-child(1){
-            background: url(img/1.jpg) no-repeat center ;
-            background-size: cover;
-        }
-        .bg-img li:nth-child(2){
-            background: url(img/2.jpg) no-repeat center ;
-            background-size: cover;
-        }
-        .bg-img li:nth-child(3){
-            background: url(img/3.jpg) no-repeat center ;
-            background-size: cover;
-        }
-        .show{
-            display: block!important;
-        }
-        .myDesc{
-            display: table-cell;
-            vertical-align: middle;
-        }
-        .space{
-            margin:20px;
-        }
-        .myMenu{
-            display: inline-block;
-            border:1px solid #000;
-            border-radius:4px;
-            margin-left:20px;
-            padding:5px 10px;
-        }
-        a.myMenu:hover{
-            background-color: yellow;
-        }
-        a.myMenu:active{
-            background-color: blue;
-        }
-        #part2,li a{
-            background-color: #2c3e50;
-            color: #f5f5f5;
-        }
-        .lf{
-            float:left;
-        }
-        #menu{
-            width:70%;
-            text-align: center;
-        }
-        #menu li{
-            display: inline-block;
-            padding:10px 15px;
-
-        }
-        #nav{
-            margin:0 auto;
-            overflow: hidden;
-        }
-        .title{
-            padding:10px 5px;
-            width:30%;
-            text-align: center;
-        }
-        #menu li a:hover{
-           color:#E87E04;
-        }
-        .active{
-            color:#E87E04;
-        }
-    </style>
 </head>
 <body>
 <div class="content">
@@ -370,28 +168,51 @@
         $("html, body").animate({scrollTop: $($(this).attr("href")).offset().top+ "px"}, 500);
         return false;//不要这句会有点卡顿
     });
-    //页面滚动
-    var top1 = $("#aboutMe").offset().top-30;
-    var top2 = $("#myWorks").offset().top-30;
-    var top3 = $("#apply").offset().top-30;
-    var top4 = $("#skill").offset().top-30;
-    var tops = [top1,top2,top3];
-    $(window).scroll(function () {
-        //导航fixed
-        var s = $(window).scrollTop();
-        console.log("s",s,top1);
-        s > top1 ? $('#part2').addClass("fixed") : $('#part2').removeClass("fixed");
-        //导航跟随滚动响应
-        if((s>top1)&&(s<top2)){
-            $("#menu li a").eq(0).addClass("active").parent().siblings().children().removeClass("active");
-        }else if((s>top2)&&(s<top3)){
-            $("#menu li a").eq(1).addClass("active").parent().siblings().children().removeClass("active");
-        }else if((s>top3)&&(s<top4)){
-            $("#menu li a").eq(2).addClass("active").parent().siblings().children().removeClass("active");
-        }else if((s>top4)){
-            $("#menu li a").eq(3).addClass("active").parent().siblings().children().removeClass("active");
+    (function (){
+        //页面滚动
+        var top1 = $("#aboutMe").offset().top-30;
+        var top2 = $("#myWorks").offset().top-30;
+        var top3 = $("#apply").offset().top-30;
+        var top4 = $("#skill").offset().top-30;
+        var tops = [top1,top2,top3];
+        function throttle(fn,time){
+            var __self = fn, // 保存需要被延迟执行的函数引用
+                    timer, // 定时器
+                    firstTime = true; // 是否是第一次调用
+            return function () {
+                var args = arguments,
+                        __me = this;
+                if ( firstTime ) { // 如果是第一次调用，不需延迟执行
+                    __self.apply(__me, args);
+                    return firstTime = false;
+                }
+                if ( timer ) { // 如果定时器还在，说明前一次延迟执行还没有完成
+                    return false;
+                }
+                timer = setTimeout(function () { // 延迟一段时间执行
+                    clearTimeout(timer);
+                    timer = null;
+                    __self.apply(__me, args);
+                }, time || 500 );
+            };
         }
-    });
+        function setActive(){
+            //导航fixed
+            var s = $(window).scrollTop();
+            s > top1 ? $('#part2').addClass("fixed") : $('#part2').removeClass("fixed");
+            //导航跟随滚动响应
+            if((s>top1)&&(s<top2)){
+                $("#menu li a").eq(0).addClass("active").parent().siblings().children().removeClass("active");
+            }else if((s>top2)&&(s<top3)){
+                $("#menu li a").eq(1).addClass("active").parent().siblings().children().removeClass("active");
+            }else if((s>top3)&&(s<top4)){
+                $("#menu li a").eq(2).addClass("active").parent().siblings().children().removeClass("active");
+            }else if((s>top4)){
+                $("#menu li a").eq(3).addClass("active").parent().siblings().children().removeClass("active");
+            }
+        }
+        $(window).scroll(throttle(setActive,500));
+    })()
     $(".playBgm").hover(function(){
         $(this).css("animation","none");
     },function (){
