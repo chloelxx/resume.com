@@ -2,6 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <meta name="keywords" content="刘星星的简历，个人简历，简历，刘星星">
+    <meta name="description" content="刘星星的简历网站">
     <title>个人简历网站</title>
     <link href="dist/index.css" rel="stylesheet">
     <style>
@@ -13,6 +16,51 @@
         body{
             font-family:"Microsoft Yahei" ;
             color: #787978;
+        }
+        #loadMusic{
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            position: fixed;
+            right: 20px;
+            top: 3px;
+            z-index: 19;
+        }
+        .playBgm{
+            animation:  myfirst 1s linear 0s infinite alternate;
+            -moz-animation:  myfirst 1s linear 0s infinite alternate;
+            -webkit-animation:  myfirst 1s linear 0s infinite alternate;
+            -o-animation:  myfirst 1s linear 0s infinite alternate;
+        }
+        .stopBgm{
+
+        }
+        @keyframes myfirst
+        {
+            from {transform: rotateX(0deg);}
+            to {transform: rotateX(360deg);}
+            from {transform: rotateX(0deg);}
+        }
+
+        @-moz-keyframes myfirst /* Firefox */
+        {
+            from {transform: rotateX(0deg);}
+            to {transform: rotateX(360deg);}
+            from {transform: rotateX(0deg);}
+        }
+
+        @-webkit-keyframes myfirst /* Safari 和 Chrome */
+        {
+            from {transform: rotateX(0deg);}
+            to {transform: rotateX(360deg);}
+            from {transform: rotateX(0deg);}
+        }
+
+        @-o-keyframes myfirst /* Opera */
+        {
+            from {transform: rotateX(0deg);}
+            to {transform: rotateX(360deg);}
+            from {transform: rotateX(0deg);}
         }
         content {
             padding: 0;
@@ -165,6 +213,8 @@
 <body>
 <div class="content">
     <div class="part" id="part1">
+        <img src="img/musicOn.png" id="loadMusic" class="playBgm">
+        <audio autoplay="autoplay" loop="loop" controls="controls" src="dist/aud.mp3"  id="bgm" style="display: none"></audio>
         <ul class="bg-img">
             <li></li>
             <li></li>
@@ -213,7 +263,7 @@
                     <img src="img/fans.png" style="width:100%;height: 100%">
                 </div>
                 <div class="programDesc">
-                    <p class="proName">2016.7-2017.5
+                    <p class="proName">
                         <a href="http://sz1-fans.oss-cn-shenzhen.aliyuncs.com/index.html#/community/album" target="_blank">
                             粉丝管理系统
                         </a>
@@ -227,7 +277,7 @@
                     <img src="img/fans.png" style="width:100%;height: 100%">
                 </div>
                 <div class="programDesc">
-                    <p class="proName">2017.1-2017.6
+                    <p class="proName">
                         <a href="http://sz1-test-sep-static.oss-cn-shenzhen.aliyuncs.com/platform/manager/home.html#/platform-manager/water/param" target="_blank">
                             监管系统
                         </a>
@@ -240,7 +290,7 @@
                     <img src="img/fans.png" style="width:100%;height: 100%">
                 </div>
                 <div class="programDesc">
-                    <p class="proName">2017.6-2017.8混合app开发中的H5页面</p>
+                    <p class="proName">混合app开发中的H5页面</p>
                     <span class="details">vue+webpack的电竞资讯详情页</span>
                 </div>
             </div>
@@ -282,6 +332,30 @@
 
 <script src="dist/jquery3.js"></script>
 <script>
+    (function() {
+        //百度自动链接推送
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+    //判断是pc还是手机端
+    (function(){
+        var ua=window.navigator.userAgent;
+        var exg=/iphone|android/;
+        if(exg.test(ua.toLowerCase())){
+            $("#nav>div").css("width","100%");
+            $("#nav>ul").css("width","100%");
+            $(".programDesc").css("display","flex");
+            $(".items").css("width","100%");
+            $(".program").css("display","block");
+        }
+    })()
     $(function() {
         var length = 2;
         $(".bg-img li:nth-child(2)").show();
@@ -304,6 +378,7 @@
     $(window).scroll(function () {
         //导航fixed
         var s = $(window).scrollTop();
+        console.log("s",s,top1);
         s > top1 ? $('#part2').addClass("fixed") : $('#part2').removeClass("fixed");
         //导航跟随滚动响应
         if((s>top1)&&(s<top2)){
@@ -316,6 +391,27 @@
             $("#menu li a").eq(3).addClass("active").parent().siblings().children().removeClass("active");
         }
     });
+    $(".playBgm").hover(function(){
+        $(this).css("animation","none");
+    },function (){
+        if($(this).hasClass("playBgm")) {
+            $(this).css("animation", "myfirst 1s linear 0s infinite alternate");
+        }
+    })
+    $("#loadMusic").click(function(){
+        console.log("click");
+        if($(this).hasClass("playBgm")){
+            $(this)[0].src="img/musicOff.png";
+            $(this).css("animation","none");
+            $("#bgm")[0].pause()
+            $(this).removeClass("playBgm");
+        }else{
+            $(this)[0].src="img/musicOn.png";
+            $(this).css("animation","myfirst 1s linear 0s infinite alternate");
+            $("#bgm")[0].play();
+            $(this).addClass("playBgm");
+        }
+    })
 </script>
 </body>
 </html>

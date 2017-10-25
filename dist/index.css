@@ -71,7 +71,6 @@
     border-right:1px solid white;
     margin-right:20px;
     flex-grow: 1;
-    flex-basis: 275px;
 }
 .proName a{
     cursor:pointer;
@@ -84,12 +83,11 @@
     margin-bottom: 20px;
 }
 .typeSkill{
-    width:45%;
     margin:0 auto;
     margin-bottom:20px;
 }
 .typeSkill p{
-   text-align: left;
+   text-align: center;
 }
 .progress{
     width:200px;
@@ -98,6 +96,7 @@
     display: inline-block;
     border:1px solid #ccc;
     vertical-align: middle;
+    text-align: left;
 }
 .progress a{
     height:18px;
