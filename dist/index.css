@@ -133,15 +133,15 @@ li{
     }
 }
 .bg-img li:nth-child(1){
-    background: url(img/1.jpg) no-repeat center ;
+    background: url(../img/1.jpg) no-repeat center ;
     background-size: cover;
 }
 .bg-img li:nth-child(2){
-    background: url(img/2.jpg) no-repeat center ;
+    background: url(../img/2.jpg) no-repeat center ;
     background-size: cover;
 }
 .bg-img li:nth-child(3){
-    background: url(img/3.jpg) no-repeat center ;
+    background: url(../img/3.jpg) no-repeat center ;
     background-size: cover;
 }
 .show{
@@ -174,6 +174,9 @@ a.myMenu:active{
 .lf{
     float:left;
 }
+.rt{
+    float:right;
+}
 #menu{
     width:70%;
     text-align: center;
@@ -205,7 +208,7 @@ a.myMenu:active{
     right:0;
     z-index:9;
 }
-.part3,.part5{
+.part3,.part5,.part7{
     text-align: center;
     background-color: #ccc;
     padding:20px;
@@ -303,4 +306,45 @@ a.myMenu:active{
     display: inline-block;
     width:90%;
     background-color: green;
+}
+.comment-content:before,.comment-content:after{
+   position: absolute;
+    height:0;
+    left: -29px;
+    top: 6px;
+    content: "";
+    border:15px solid transparent;
+
+}
+.comment-content:before{
+    border-right-color: #000;
+}
+.comment-content:after{
+    border-right-color: #fff;
+}
+.Social>a{
+    display: inline-block;
+    width: 38px;
+    height: 32px;
+}
+.Social>h6{
+    margin:5px;
+}
+.Login>h6{
+    margin:5px;
+}
+.qq{
+    background: url(../img/uyan32.png) no-repeat 5px -224px;
+}
+.sina{
+    background: url(../img/uyan32.png) no-repeat 5px -32px;
+}
+button{
+    list-style-type:none;
+    border:0;
+    padding:5px 15px;
+    background-color: #ccffff;
+}
+textarea,button{
+    outline:none;
 }
