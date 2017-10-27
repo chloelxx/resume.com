@@ -17,7 +17,7 @@
 <body>
 <div class="content">
     <div class="part" id="part1">
-        <img src="img/musicOn.png" id="loadMusic" class="playBgm">
+        <img src="img/musicOn.png" id="loadMusic">
         <audio autoplay="autoplay" loop="loop" controls="controls" src="dist/aud.mp3"  id="bgm" style="display: none"></audio>
         <ul class="bg-img">
             <li></li>
@@ -140,7 +140,7 @@
         <div id="comments" style="margin:0 auto">
             <img src="img/img.png" style="width:30px;height:30px;vertical-align: top;margin-top:9px;">
             <div class="comment-content"  style="position: relative;width:60%;display: inline-block;margin-left: 12px;">
-                <textarea id="comt" style="height:100px;width:100%;padding:5px;"></textarea>
+                <textarea id="comt" style="height:100px;width:100%;padding:5px;border:0px"></textarea>
                 <span id="countWords" style="position: absolute;right: 10px;bottom:10px">0/200</span>
             </div>
             <div id="sociallogin" class="Social-Login" style="width:60%;display: inline-block;margin-left: 37px;">
@@ -189,7 +189,36 @@
             $(".programDesc").css("display","flex");
             $(".items").css("width","100%");
             $(".program").css("display","block");
+            $(".list-img img").css("-webkit-filter"," brightness(0.3)").css("filter","brightness(0.3)");
             $("#loadMusic").removeClass("playBgm");
+            $(".program>div").css("padding",0);
+            $("#loadMusic").click(function(){
+                console.log("click");
+                var f=$("#bgm")[0].paused;
+                if(!f){
+                    $(this)[0].src="img/musicOff.png";
+                    $("#bgm")[0].pause()
+                }else{
+                    $(this)[0].src="img/musicOn.png";
+                    $("#bgm")[0].play();
+                }
+            })
+        }else{
+            $("#loadMusic").addClass("playBgm");
+            $("#loadMusic").click(function(){
+                console.log("click");
+                if($(this).hasClass("playBgm")){
+                    $(this)[0].src="img/musicOff.png";
+                    $(this).css("animation","none");
+                    $("#bgm")[0].pause()
+                    $(this).removeClass("playBgm");
+                }else{
+                    $(this)[0].src="img/musicOn.png";
+                    $(this).css("animation","myfirst 1s linear 0s infinite alternate");
+                    $("#bgm")[0].play();
+                    $(this).addClass("playBgm");
+                }
+            })
         }
     })()
     $(function() {
@@ -257,20 +286,7 @@
             $(this).css("animation", "myfirst 1s linear 0s infinite alternate");
         }
     })
-    $("#loadMusic").click(function(){
-        console.log("click");
-        if($(this).hasClass("playBgm")){
-            $(this)[0].src="img/musicOff.png";
-            $(this).css("animation","none");
-            $("#bgm")[0].pause()
-            $(this).removeClass("playBgm");
-        }else{
-            $(this)[0].src="img/musicOn.png";
-            $(this).css("animation","myfirst 1s linear 0s infinite alternate");
-            $("#bgm")[0].play();
-            $(this).addClass("playBgm");
-        }
-    })
+
    function postComment(){
       var str= $("#comt").val();
        console.log(str);
