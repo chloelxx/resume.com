@@ -61,9 +61,11 @@ $("a").click(function () {
     var top1 = $("#aboutMe").offset().top-30;
     var top2 = $("#myWorks").offset().top-30;
     var top3 = $("#apply").offset().top-30;
-    var top4 = $("#skill").offset().top-30;
+    var top4 = $("#skill").offset().top- 30;
+    var top5 = $("#contactMe").offset().top-30;
+
     var tops = [top1,top2,top3];
-    function throttle(fn,time){
+/*    function throttle(fn,time){
         var __self = fn, // 保存需要被延迟执行的函数引用
             timer, // 定时器
             firstTime = true; // 是否是第一次调用
@@ -81,12 +83,12 @@ $("a").click(function () {
                 clearTimeout(timer);
                 timer = null;
                 __self.apply(__me, args);
-            }, time || 500 );
+            }, time || 0 );
         };
-    }
+    }*/
     function setActive(){
         //导航fixed
-        var s = $(window).scrollTop();
+        var s = $(window).scrollTop()+$(window).height()/2;
         s > top1 ? $('#part2').addClass("fixed") : $('#part2').removeClass("fixed");
         //导航跟随滚动响应
         if((s>top1)&&(s<top2)){
@@ -95,11 +97,14 @@ $("a").click(function () {
             $("#menu li a").eq(1).addClass("active").parent().siblings().children().removeClass("active");
         }else if((s>top3)&&(s<top4)){
             $("#menu li a").eq(2).addClass("active").parent().siblings().children().removeClass("active");
-        }else if((s>top4)){
+        }else if((s>top4)&&(s<top5)){
             $("#menu li a").eq(3).addClass("active").parent().siblings().children().removeClass("active");
+        }else if((s>top5)){
+            $("#menu li a").eq(4).addClass("active").parent().siblings().children().removeClass("active");
         }
     }
-    $(window).scroll(throttle(setActive,500));
+    $(window).scroll(setActive);
+   // $(window).scroll(throttle(setActive,500));
 })()
 $(".playBgm").hover(function(){
     $(this).css("animation","none");

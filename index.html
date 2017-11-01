@@ -7,7 +7,7 @@
     <meta name="description" content="刘星星WEB前端工程师的个人简历">
     <meta name="author" content="刘星星,chloe">
     <title>个人简历网站</title>
-    <link href="dist/index.css" rel="stylesheet">
+    <link href="dist/index.css?"+new Date() rel="stylesheet">
     <!--[if lte IE 9]>
     <script type="text/javascript">
         window.location.href= "error.html"
@@ -163,7 +163,7 @@
             </div>
         </div>
     </div>
-    <div class="part8" id="note">
+    <div class="part8" id="note" style="display: none">
         <ol class="comment-body">
             <li class="comment-items" v-for="(items,index) in list">
                 <div class="comment-head" style="overflow:hidden;">
@@ -190,7 +190,7 @@
 
 <script src="dist/jquery3.js"></script>
 <script src="dist/vue.js"></script>
-<script src="dist/index.js"></script>
+<script src="dist/index.js?"+new Date()></script>
 <script>
     (function() {
         //百度自动链接推送
