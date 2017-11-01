@@ -5,7 +5,7 @@ var settings={};
 settings.db={
     host: 'localhost',
     user: 'root',
-    password: '111111',
+    password: 'root',
     port:'3306',
     database:'test'
 }

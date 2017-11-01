@@ -12,66 +12,85 @@ var connection = mysql.createConnection(settings.db);
 connection.connect();
 
 //查询
-var selectSQL = 'select * from student';
+var selectSQL = 'select * from message';
+console.log(1111)
 
-var arr = [];
-connection.query(selectSQL, function(err, rows) {
-    if (err) throw err;
-    for (var i = 0; i < rows.length; i++) {
-        arr[i] = rows[i].name;
-    }
-    //res.send(rows);
-    //把搜索值输出
-    app.get('/jsonp', function(req, res) {
-      //  res.send(rows);
-      //  console.log("jsoncallback");
-      //  res.header("Access-Control-Allow-Origin", "*");
-      //  res.header("Access-Control-Allow-Headers", "X-Requested-With");
-      //  res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
-      //  res.header("X-Powered-By",' 3.2.1');
-      //  res.header("Content-Type", "application/jsonp;charset=utf-8");
-        var _callback = req.query.callback;
-        console.log(req.query.callback);
-        var _data = { email: 'example@163.com', name: 'jaxu' };
-        res.type('text/javascript');
-        res.send(_callback + '(' + JSON.stringify(rows) + ')');
-        //res.jsonp("asaa");
-    });
-    //app.all('*', function(req, res, next) {
-    //    res.header("Access-Control-Allow-Origin", "*");
-    //    res.header("Access-Control-Allow-Headers", "X-Requested-With");
-    //    res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
-    //    res.header("X-Powered-By",' 3.2.1');
-    //    res.header("Content-Type", "application/json;charset=utf-8");
-    //    res.send(rows);
-    //    console.log(rows);
-    //    next();
-    //});
+/*加载模块*/
+var http = require('http');
+var path = require('path');
+/*创建服务*/
+var app = express();
+app.use(express.static(path.join(__dirname, 'dist')));
+/*服务启动*/
 
+
+/*app.use(express.static('dist'));*/
+app.get('/', function(req, res){
+    res.sendFile( 'D:/resumeWebsite/index.html' );
 });
 
+    //把搜索值输出
+    app.all('/commentData', function(req, res,next) {
+      //  res.send(rows);
+        console.log("jsoncallback");
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Headers", "x-requested-with,content-type");
+        res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
+        res.header("X-Powered-By",' 3.2.1');
+        // res.header("Content-Type", "application/jsonp;charset=utf-8");
+        //var data = { email: 'example@163.com', name: 'jaxu' };
+        //res.send(JSON.stringify(arr));
+        var arr=[];
+        connection.query(selectSQL, function(err, rows) {
+            if (err) throw err;
+            arr=rows
+            res.send(JSON.stringify(arr));
+        })
+    });
 
-//var server = http.createServer(function(req, res) {
-//    res.writeHeader(200,{
-//        'content-type':'application/json',
-//        'Access-Control-Allow-Origin' : '*',
-//        'Access-Control-Request-Method':'POST,GET,OPTIONS',
-//        'Access-Control-Request-Headers':'content-type'});
-//    res.on('data',function(d){
-//        console.log(d);
-//    })
-//    //var a={
-//    //    'name':'test'
-//    //};
-//    var a=["name","chloe"];
-//    console.log(a);
-//    res.write(JSON.stringify(a));
-//    $jsoncallback . "(" . $json_data . ")";
-//    res.end();
-//}).listen('8080');
+var bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.all('/postCommet', function(req, res,next) {
 
-
-
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "x-requested-with,content-type");
+    res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
+    res.header("X-Powered-By",' 3.2.1');
+    res.header("Content-Type", "application/json;charset=utf-8");
+    console.log(req.method)
+    if(req.method=="POST"){
+        console.log("body==",req.body);
+        var arr1=[];
+        connection.query("insert into message(user,pwd,content) values('" + 22 + "'," + 22+ ",'" +req.body.content + "')", function (err, rows) {
+            connection.query(selectSQL, function(err, rows) {
+                if (err) throw err;
+                 arr1=rows
+                res.json(JSON.stringify(arr1));
+            })
+        })
+    }else {
+        res.sendStatus(200);
+     //   next();
+    }
+});
+/*app.all('/postCommet', function (req, res,next) {
+   console.log(req.body);
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
+    res.header("X-Powered-By",' 3.2.1');
+    res.header("Access-Control-Allow-Headers", "accept, content-type");
+    res.header("Content-Type", "application/json;charset=utf-8");
+    var data = { email: 'example@163.com', name: 'jaxu' };
+    res.send(JSON.stringify(data));
+    next();
+    //connection.query("insert into message(user,pwd,content) values('" + 11 + "'," + 11 + ",'" + 555 + "')", function (err, rows) {
+    //
+    //})
+});*/
 //关闭连接
-connection.end();
-app.listen(8080);
+//
+var server=app.listen(86,function(){
+    var host=server.address();
+    console.log(host);
+   // console.log("访问的地址是:http://%s:%s",host,post);
+});

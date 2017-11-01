@@ -3,6 +3,9 @@
     margin:0;
     box-sizing: border-box;
 }
+html{
+    font-size:16px;
+}
 body{
     font-family:"Microsoft Yahei" ;
     color: #787978;
@@ -347,4 +350,26 @@ button{
 }
 textarea,button{
     outline:none;
+}
+.comment-body {
+    padding:10px;
+}
+.bbs-headPic {
+    width: 29px;
+    height: 29px;
+    float: left;
+    margin-right: 10px;
+    position: relative;
+}
+
+.bbs-headPic>img {
+    width: 29px;
+    height: 29px;
+    border-radius: 50%;
+}
+.comment-items{
+    border:1px solid #ccc;
+    padding:10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
 }
