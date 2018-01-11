@@ -113,3 +113,68 @@ $(".playBgm").hover(function(){
         $(this).css("animation", "myfirst 1s linear 0s infinite alternate");
     }
 })
+var vm=new Vue({
+    el:"#note",
+    data: {
+        list:[],
+        isMoreDate:true,
+        offset:1,
+    },
+    created:function(){
+        this.initGetData()
+    },
+    methods:{
+        formatTime:function(time){
+            console.log(time);
+            var data=new Date(time*1000);
+           return data.toLocaleString();
+        },
+        loadMoreCom:function (){
+           this.initGetData();
+        },
+        initGetData:function(){
+            $.ajax({
+                url: "http://127.0.0.1:86/commentData?page="+this.offset,
+                method: "GET",
+                beforeSend: function(xhr) {
+                    //  xhr.setRequestHeader("If-Modified-Since", "0");
+                },
+                error: function(responseTxt) {
+                    console.log("get cors",responseTxt);
+                },
+                success: function(responseTxt) {
+                    var data=JSON.parse(responseTxt);
+                    if(data.length!=0){
+                        vm.list=vm.list.concat(data);
+                        vm.offset=vm.offset+1;
+                    }else{
+                        vm.isMoreDate=false;
+                    }
+
+                }
+            })
+        }
+    }
+})
+function postComment(){
+    var str= $("#comt").val();
+    str=JSON.stringify({content:str});
+    console.log(str);
+    $.ajax({
+        url: "http://127.0.0.1:86/postCommet",
+        method: "POST",
+        data:str,
+        dataType: "json",
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader("Content-Type","application/json;charset=utf-8");
+        },
+        error: function(data) {
+            console.log("服务器暂为开启，请过两天留言");
+        },
+        success: function(responseTxt) {
+            var data=JSON.parse(responseTxt);
+            console.log("data:",data);
+            vm.list.splice(0,0,data[0]);
+        }
+    })
+}

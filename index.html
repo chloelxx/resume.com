@@ -8,6 +8,9 @@
     <meta name="author" content="刘星星,chloe">
     <title>个人简历网站</title>
     <link href="dist/index.css?"+new Date() rel="stylesheet">
+	<style>
+        [v-cloak] { display: none }
+    </style>
     <!--[if lte IE 9]>
     <script type="text/javascript">
         window.location.href= "error.html"
@@ -17,8 +20,8 @@
 <body>
 <div class="content">
     <div class="part" id="part1">
-        <img src="img/musicOn.png" id="loadMusic">
-        <audio autoplay="autoplay" loop="loop" controls="controls" src="dist/aud.mp3"  id="bgm" style="display: none"></audio>
+        <!--<img src="img/musicOn.png" id="loadMusic">-->
+        <!--<audio autoplay="autoplay" loop="loop" controls="controls" src="dist/aud.mp3"  id="bgm" style="display: none"></audio>-->
         <ul class="bg-img">
             <li></li>
             <li></li>
@@ -163,27 +166,19 @@
             </div>
         </div>
     </div>
-    <div class="part8" id="note" style="display: none">
+    <div class="part8" id="note" v-cloak>
         <ol class="comment-body">
-            <li class="comment-items" v-for="(items,index) in list">
-                <div class="comment-head" style="overflow:hidden;">
-                    <div class="bbs-headPic">
-                        <img src="img/img.png" alt="name">
-                    </div>
-                    <div class="pm">
-                        <div style="float: left;">
-                            <p class="text14" style="line-height:100%">{{index}}楼</p>
-                            <span>2017/6/30</span>
-                        </div>
-                    </div>
+            <li v-for="(item,index) in list" style="margin-top: 20px;">
+                <div class="lf comHeader">
+                    <img src="img/default.jpg" style="width:100%;">
                 </div>
-                <div class="comment-text">
-                    <p class="detailWord">
-                       {{items.content}}
-                    </p>
+                <div class="comTxt">
+                    <div class="comTime" style="">匿名评论&nbsp;&nbsp;{{formatTime(item.time)}}</div>
+                    <div class="cnt">{{item.content}}</div>
                 </div>
             </li>
-            <div class="text14 colorGray" style="text-align: center;margin: 0.25px 0rem 0.15rem 0rem;" @click="loadMoreCom()">加载更多评论</div>
+            <div class="loadMoreCom" @click="loadMoreCom()" v-if="isMoreDate">加载更多评论</div>
+            <div class="loadMoreCom" v-if="!isMoreDate">评论已加载完</div>
         </ol>
     </div>
 </div>
@@ -204,53 +199,6 @@
         var s = document.getElementsByTagName("script")[0];
         s.parentNode.insertBefore(bp, s);
     })();
-  /*  var vm=new Vue({
-        el:"#note",
-        data: {
-            list:[],
-        },
-        created:function(){
-            $.ajax({
-                url: "http://127.0.0.1:86/commentData",
-                method: "GET",
-                beforeSend: function(xhr) {
-                    //  xhr.setRequestHeader("If-Modified-Since", "0");
-                },
-                error: function(responseTxt) {
-                    console.log("get cors",responseTxt);
-                },
-                success: function(responseTxt) {
-                    console.log("success get",responseTxt)
-                    vm.list=JSON.parse(responseTxt);
-                    console.log("vm.list", vm.list,vm.list.length);
-                }
-            })
-        },
-        methods:{
-
-        }
-    })*/
-   function postComment(){
-      var str= $("#comt").val();
-       str=JSON.stringify({content:str});
-       console.log(str);
-       $.ajax({
-           url: "http://127.0.0.1:86/postCommet",
-           method: "POST",
-           data:str,
-           dataType: "json",
-           beforeSend: function(xhr) {
-               xhr.setRequestHeader("Content-Type","application/json;charset=utf-8");
-           },
-           error: function(data) {
-               console.log("服务器暂为开启，请过两天留言");
-           },
-           success: function(responseTxt) {
-               console.log("success post",responseTxt)
-              vm.list=JSON.parse(responseTxt);
-           }
-       })
-   }
 </script>
 </body>
 </html>
